@@ -15,7 +15,7 @@ const endpoints = {
     TASKS: {
         ADD: `${endpointUrl}/tasks`,
         FETCH: `${endpointUrl}/list/tasks/:id`,
-        DELETE: `${endpointUrl}/tasks/:id`,
+        DELETE: `${endpointUrl}/list/tasks/:id`,
         GET: `${endpointUrl}/tasks/:id`,
         MODIFY: `${endpointUrl}/tasks/:id`,
     }
