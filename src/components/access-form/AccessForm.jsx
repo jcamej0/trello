@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 const AccessForm = ({onSubmit, label}) => {
-    const [name, changeName] = useState();
+    const [username, changeUsername] = useState();
     const [password, changePassword] = useState();
 
     const handleNameChange = (event) => {
-        changeName(event.target.value);
+        changeUsername(event.target.value);
     };
 
     const handlePasswordChange = (event) => {
@@ -14,12 +14,12 @@ const AccessForm = ({onSubmit, label}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit({name, password});
+        onSubmit({username, password});
     };
 
   return(
     <form onSubmit={handleSubmit}>
-        <input type="text" value={name} onChange={handleNameChange} />
+        <input type="text" value={username} onChange={handleNameChange} />
         <input type="password" value={password} onChange={handlePasswordChange} />
         <input type="submit" value={label} />
     </form>
