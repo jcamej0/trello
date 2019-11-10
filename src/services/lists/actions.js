@@ -94,7 +94,31 @@ const actions = {
 			
 		}
 
-	}
+	},
+	edit: async (store, name, idList) => {
+		const authToken = store.state.auth.authToken;
+		const lists = store.state.lists.lists;
+		const filterListIndex = lists.findIndex(list => list.id === idList);
+
+		try {
+			const response = await httpClient.put(endpoints.LISTS.EDIT, authToken, {name}, idList);
+			const editedList = await response.json();
+
+			store.setState({
+				lists: {
+					lists: [
+						...store.state.lists.lists,
+						store.state.lists.lists[filterListIndex]['name'] = name
+					]
+				}
+			})
+
+			return true;
+		}catch(err) {
+			console.log("err", err);
+			return false;
+		}
+	},
 };
 
 export default actions;
