@@ -7,17 +7,17 @@ const endpoints = {
     },
     LISTS: {
         CREATE: `${endpointUrl}/list`,
-        FETCH: `${endpointUrl}/lists`,
-        FETCH_SINGLE: `${endpointUrl}/lists/:listId`,
-        EDIT: `${endpointUrl}/list/:listId`,
-        DELETE: `${endpointUrl}/list/:listId`,
+        FETCH: `${endpointUrl}/list`,
+        FETCH_SINGLE: `${endpointUrl}/lists/:id`,
+        EDIT: `${endpointUrl}/list/:id`,
+        DELETE: `${endpointUrl}/list/:id`,
     },
     TASKS: {
         ADD: `${endpointUrl}/tasks`,
-        FETCH: `${endpointUrl}/tasks/:listId`,
-        DELETE: `${endpointUrl}/tasks/:listId`,
-        GET: `${endpointUrl}/tasks/:listId`,
-        MODIFY: `${endpointUrl}/tasks/:listId`,
+        FETCH: `${endpointUrl}/list/tasks/:id`,
+        DELETE: `${endpointUrl}/tasks/:id`,
+        GET: `${endpointUrl}/tasks/:id`,
+        MODIFY: `${endpointUrl}/tasks/:id`,
     }
 };
 
