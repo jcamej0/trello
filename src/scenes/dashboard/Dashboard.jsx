@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useGlobalState from "../../state";
 import Lists from "./components";
+import { NewList } from "./components";
 import Spinner from "../../ui-library/loading-spinner";
 import theme from "./theme.module.scss";
 
@@ -11,22 +12,26 @@ const Dashboard = () => {
   } = globalState;
 
   const {
-    lists: { fetch }
+    lists: { fetch, create }
   } = globalActions;
 
   useEffect(() => {
     fetch();
-  }, []);
+	}, []);
+	
+
   return (
     <React.Fragment>
       {fetching && <Spinner opaque />}
       <div className={theme.container}>
         <nav className={`${theme.navbar} ${theme.app}`}>Trello</nav>
-        <div className={theme['list-container']}>
-            {lists &&
+        <div className={theme["list-container"]}>
+          {lists &&
             lists.map(list => {
-                return <Lists id={list.id} name={list.name} />;
+              return <Lists id={list.id} name={list.name} />;
             })}
+
+          <NewList handleCreateList={create}/>
         </div>
       </div>
     </React.Fragment>

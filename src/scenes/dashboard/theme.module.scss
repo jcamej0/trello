@@ -3,6 +3,8 @@
 $board-bg-color: #0079bf;
 $first-bg-color: #0067a3;
 $list-bg-color: #e2e4e6;
+// Structure
+$list-width: 300px;
 
 body {
   margin: 0;
@@ -22,6 +24,7 @@ body {
 
   .list-container {
     display: flex;
+    overflow-x: scroll;
     height: 100vh;
     flex-direction: row;
   }
