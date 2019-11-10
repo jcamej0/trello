@@ -12,14 +12,14 @@ const get = (url, token, urlParams) => {
   });
 };
 
-const post = (url, token, params) => {
+const post = (url, token, bodyParams) => {
   return fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       AUTHORIZATION: `Bearer ${token}`
     },
-    body: params ? httpEncodeFormData(params) : null
+    body: bodyParams ? httpEncodeFormData(bodyParams) : null
   });
 };
 
@@ -36,9 +36,22 @@ const put = (url, token, bodyParams, urlParams) => {
   });
 };
 
+const destroy = (url, token, urlParams) => {
+  url = urlParams ? url.replace(":id", urlParams) : url;
+
+  return fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      AUTHORIZATION: `Bearer ${token}`
+    }
+  });
+};
+
 const httpClient = {
   get,
   post,
-  put
+	put,
+	destroy
 };
 export default httpClient;
