@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import useGlobalState from "../../../state";
 import Task from "./Task";
+import EditListName from "./EditListName";
 import Tooltip from "./Tooltip";
-import Modal from '../../../components/modal';
-import NewTask from './NewTask';
-import { ReactComponent as Delete } from '../../../ui-library/svg/delete.svg';
+import Modal from "../../../components/modal";
+import NewTask from "./NewTask";
+import { ReactComponent as Delete } from "../../../ui-library/svg/delete.svg";
 import theme from "./theme.module.scss";
 
 function offset(el) {
@@ -18,6 +19,7 @@ const Lists = ({ id, name }) => {
   const [idList, changeIdList] = useState(null);
   const [newTask, changeNewTask] = useState("");
   const [newTaskName, changeNewTaskName] = useState("");
+  const [editTaskName, changeEditTaskName] = useState(false);
   const [showModal, changeShowModal] = useState(false);
   const [displayTooltip, changeDisplayTooltip] = useState(false);
   const [tooltipPosition, changeTooltipPosition] = useState(null);
@@ -30,8 +32,8 @@ const Lists = ({ id, name }) => {
     }
   } = globalState;
   const {
-    tasks: { add: addNewTask, modify, },
-    lists: { destroy }
+    tasks: { add: addNewTask, modify },
+    lists: { destroy, edit: editList }
   } = globalActions;
   const [prepareInputNewTask, changePrepareInputNewTask] = useState(false);
 
@@ -64,35 +66,51 @@ const Lists = ({ id, name }) => {
   };
 
   const handleModifyTask = task => {
-		const status = modify(selectedIdTask, idList, task);
-		if(status) {
-			handleHideTooltip();
-		}
+    const status = modify(selectedIdTask, idList, task);
+    if (status) {
+      handleHideTooltip();
+    }
+  };
+
+  const handleToggleEditListName = () => {
+    changeEditTaskName(!editTaskName);
   };
 
   const toggleModal = () => {
     changeShowModal(!showModal);
   };
   const handleCheckBeforeDeleteList = () => {
-    if(filteredTasks) {
+    if (filteredTasks) {
       toggleModal(true);
       return;
     }
 
     handleDeleteList();
-  }
+  };
   const handleDeleteList = () => {
-    if(filteredTasks) {
+    if (filteredTasks) {
       toggleModal();
     }
-     destroy(id);
+    destroy(id);
   };
 
   return (
     <div className={theme.list}>
       <header>
-        <span>{name}</span>
-        <div className={theme.delete} onClick={handleCheckBeforeDeleteList}> <Delete /> </div>
+        {!editTaskName && (
+          <span onClick={handleToggleEditListName}>{name}</span>
+        )}
+        {editTaskName && (
+          <EditListName
+            handleEdit={editList}
+            currentName={name}
+            idList={idList}
+            closeEditList={handleToggleEditListName}
+          />
+        )}
+        <div className={theme.delete} onClick={handleCheckBeforeDeleteList}>
+          <Delete />
+        </div>
       </header>
       <ul>
         {filteredTasks &&
@@ -105,7 +123,11 @@ const Lists = ({ id, name }) => {
             />
           ))}
         {prepareInputNewTask && (
-          <NewTask addNewTask={addNewTask} idList={idList} handleClose={handleTogglePrepareNewTask}/>
+          <NewTask
+            addNewTask={addNewTask}
+            idList={idList}
+            handleClose={handleTogglePrepareNewTask}
+          />
         )}
       </ul>
       <footer>
@@ -120,9 +142,9 @@ const Lists = ({ id, name }) => {
           handleModifyTask={handleModifyTask}
         />
       )}
-      { showModal &&
-        <Modal handleDelete={handleDeleteList} handleClose={toggleModal}/>
-      }
+      {showModal && (
+        <Modal handleDelete={handleDeleteList} handleClose={toggleModal} />
+      )}
     </div>
   );
 };
