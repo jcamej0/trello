@@ -6,12 +6,12 @@ const encodeFormData = data => {
     .join("&");
 };
 
-const register = async ({ name, password }) => {
+const register = async ({ username, password }) => {
   try {
     const response = await fetch(endpoints.ACCESS.REGISTER, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encodeFormData({ username: name, password: password })
+      body: encodeFormData({ username, password })
     });
     const userInfo = await response.json();
     return userInfo;
