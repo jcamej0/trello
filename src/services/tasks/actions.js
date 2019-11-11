@@ -2,11 +2,9 @@ import endpoints from "../endpoints";
 import httpClient from "../../utils";
 
 const actions = {
-  fetch: async store => {
+  fetch: async (store, lists) => {
     const authToken = store.state.auth.authToken;
-    const lists = store.state.lists.lists;
     const listsArraysOfId = lists.map(({ id }) => id).filter(id => id);
-
     await listsArraysOfId.forEach(async listId => {
       try {
         const response = await httpClient.get(
@@ -24,7 +22,7 @@ const actions = {
           });
         }
       } catch (err) {
-        console.log("err", err);
+							return false;
       }
     });
 
@@ -58,7 +56,7 @@ const actions = {
 
       return true;
     } catch (err) {
-      console.log(err);
+       return false;
     }
   },
   modify: async (store, idTask, idList, task) => {
@@ -68,7 +66,6 @@ const actions = {
     const indexOfElement = taskListFiltered.findIndex(
       element => element.id === idTask
     );
-
     try {
       const response = await httpClient.put(
         endpoints.TASKS.MODIFY,
@@ -90,7 +87,7 @@ const actions = {
       });
       return true;
     } catch (err) {
-      console.log(err);
+       return false;
     }
   }
 };

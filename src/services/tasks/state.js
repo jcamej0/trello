@@ -1,7 +1,6 @@
 const initialState = {
-    fetching: false,
-    tasks: {
-    }
+  fetching: false,
+  tasks: {}
 };
 
 export default initialState;
