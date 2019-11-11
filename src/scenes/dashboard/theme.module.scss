@@ -1,0 +1,54 @@
+/* Some Sass variables */
+// Colors
+$board-bg-color: #0079bf;
+$first-bg-color: #0067a3;
+$list-bg-color: #e2e4e6;
+// Structure
+$list-width: 300px;
+
+body {
+  margin: 0;
+
+  font-family: "Roboto";
+  font-size: 14px;
+  line-height: 1.3em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  background-color: $board-bg-color;
+  color: #eee;
+
+  .list-container {
+    display: flex;
+    overflow-x: scroll;
+    height: 100vh;
+    flex-direction: row;
+  }
+}
+
+.navbar {
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.app {
+    background-color: $first-bg-color;
+    font-size: 3rem;
+    height: 8%;
+    width: 100%;
+    
+  }
+
+  .logout {
+      position: absolute;
+      right:0;
+      width: 35px;
+      margin-right: 1em;
+      cursor: pointer;
+  }
+}
+
