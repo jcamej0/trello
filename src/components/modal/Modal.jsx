@@ -6,9 +6,9 @@ const Modal = ({handleDelete, handleClose}) => {
 
       <div  className={theme["modal-window"]}>
         <div>
-          <a title="Close" className={theme["modal-close"]} onClick={handleClose}>
+          <span  className={theme["modal-close"]} onClick={handleClose}>
             Cerrar
-          </a>
+          </span>
           <h1>Advertencia!</h1>
           <div>
             <p>Esta lista posee tareas</p>
