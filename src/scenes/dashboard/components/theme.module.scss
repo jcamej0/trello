@@ -60,17 +60,37 @@ $list-bg-color: #e2e4e6;
       &:not(:last-child) {
         margin-bottom: $gap;
       }
+      &:hover .edit-name-icon {
+        visibility: visible;
+      }
 
       border-radius: $card-border-radius;
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-
-      .toolbox {
+      
+      .edit-name-icon{
+        width: 15px;
         position: absolute;
-        top: 0;
+        visibility: hidden;
         right: 0;
+        top: 0;
+        cursor: pointer;
       }
+
     }
   }
+
+  .edit-name-icon{
+    width: 15px;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .header {
+    &:hover .edit-name-icon {
+      visibility: visible;
+    }
+  }
+
 }
 
 .task-editor-container {
@@ -82,43 +102,49 @@ $list-bg-color: #e2e4e6;
   right: 0;
   top: 0;
   z-index: 1;
+
+  .task-editor-overlay {
+    background: rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 2;
+  }
+  .task-editor {
+    position: absolute;
+    z-index: 3;
+  }
+  .task-editor-buttons {
+    left: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 240px;
+    z-index: 0;
+    transform: translateX(-20px);
+    opacity: 1;
+    transform: translateX(0);
+    .task-editor-container {
+      position: absolute;
+    }
+    .button {
+      background-color: #5aac44;
+      box-shadow: none;
+      border: none;
+      color: #fff;
+      margin: 0 0 4px 8px;
+      padding: 6px 12px 6px 8px;
+    }
+  }
+
+  .button-close {
+    @extend .button;
+    background-color: #d82929 !important; 
+  }
 }
 
-.task-editor-overlay {
-  background: rgba(0, 0, 0, 0.1);
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 2;
-}
-.task-editor {
-  position: absolute;
-  z-index: 3;
-}
-.task-editor-buttons {
-  left: 100%;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  width: 240px;
-  z-index: 0;
-  transform: translateX(-20px);
-  opacity: 1;
-  transform: translateX(0);
-  .task-editor-container {
-    position: absolute;
-  }
-  .button {
-    background-color: #5aac44;
-    box-shadow: none;
-    border: none;
-    color: #fff;
-    margin: 0 0 4px 8px;
-    padding: 6px 12px 6px 8px;
-  }
-}
 
 .add-new-list {
   background-color: hsla(0, 0%, 100%, 0.24);

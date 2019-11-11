@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import theme from './theme.module.scss';
 
 const Tooltip = ({top, left, closeTooltip, task, handleModifyTask}) => {
-	const [taskName, changeTaskName] = useState(task || '');
+  const [taskName, changeTaskName] = useState(task || '');
 
 	const handleChangeTaskName = (event) => {
 		changeTaskName(event.target.value);
@@ -18,11 +18,12 @@ const Tooltip = ({top, left, closeTooltip, task, handleModifyTask}) => {
             <button className={theme.button} onClick={() => handleModifyTask(taskName)}>
               Guardar
             </button>
+            <button className={theme['button-close']} onClick={closeTooltip}>
+              Salir
+            </button>
           </div>
         </div>
       </div>
-			<div  className={theme["task-editor-overlay"]} onClick={closeTooltip}/>
-			
     </React.Fragment>
   );
 };

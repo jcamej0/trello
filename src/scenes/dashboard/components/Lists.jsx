@@ -6,6 +6,7 @@ import Tooltip from "./Tooltip";
 import Modal from "../../../components/modal";
 import NewTask from "./NewTask";
 import { ReactComponent as Delete } from "../../../ui-library/svg/delete.svg";
+import { ReactComponent as Edit } from "../../../ui-library/svg/edit.svg";
 import theme from "./theme.module.scss";
 
 function offset(el) {
@@ -32,7 +33,7 @@ const Lists = ({ id, name }) => {
     }
   } = globalState;
   const {
-    tasks: { add: addNewTask, modify },
+    tasks: { add: addNewTask, modify: modifyTask },
     lists: { destroy, edit: editList }
   } = globalActions;
   const [prepareInputNewTask, changePrepareInputNewTask] = useState(false);
@@ -66,7 +67,7 @@ const Lists = ({ id, name }) => {
   };
 
   const handleModifyTask = task => {
-    const status = modify(selectedIdTask, idList, task);
+    const status = modifyTask(selectedIdTask, idList, task);
     if (status) {
       handleHideTooltip();
     }
@@ -98,7 +99,10 @@ const Lists = ({ id, name }) => {
     <div className={theme.list}>
       <header>
         {!editTaskName && (
-          <span onClick={handleToggleEditListName}>{name}</span>
+          <div className={theme.header}>
+            <span onClick={handleToggleEditListName}>{name}</span>
+            <Edit className={theme['edit-name-icon']} />
+          </div>
         )}
         {editTaskName && (
           <EditListName
@@ -119,6 +123,7 @@ const Lists = ({ id, name }) => {
               id={task.id}
               task={task.task}
               index={i}
+              key={i}
               handleDisplayTooltip={handleDisplayTooltip}
             />
           ))}
