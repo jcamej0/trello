@@ -2,20 +2,22 @@ import React, { useState } from "react";
 import theme from "./theme.module.scss";
 
 const AccessForm = ({ onSubmit, label }) => {
-  const [username, changeUsername] = useState();
-  const [password, changePassword] = useState();
+  const [username, changeUsername] = useState('');
+  const [password, changePassword] = useState('');
 
   const handleNameChange = event => {
-    changeUsername(event.target.value);
+    changeUsername(event ? event.target.value : '');
   };
 
   const handlePasswordChange = event => {
-    changePassword(event.target.value);
+    changePassword(event ? event.target.value : '');
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({ username, password });
+		onSubmit({ username, password });
+		handleNameChange();
+		handlePasswordChange();
   };
 
   return (
