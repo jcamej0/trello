@@ -16,21 +16,35 @@ const actions = {
       });
 
       const userAuthToken = await response.text();
-
-      actions.setAuthToken(store, userAuthToken);
-      return true;
+      if(userAuthToken) {
+        actions.setAuthToken(store, userAuthToken);
+        return true;
+      } else {
+          return false;
+      }
     } catch (err) {
       return false;
     }
   },
   setAuthToken: (store, authToken) => {
+    window.localStorage.setItem('authToken', authToken);
     store.setState({
       auth: {
         authenticated: true,
         authToken: authToken
       }
     });
-  }
+  },
+  logout: (store) => {
+    window.localStorage.removeItem('authToken');
+    store.setState({
+        auth: {
+          authenticated: false,
+          authToken: null,
+        }
+      });
+    window.location.href = "../";
+  },
 };
 
 export default actions;
