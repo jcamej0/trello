@@ -14,18 +14,19 @@ const actions = {
     try {
       const response = await httpClient.get(endpoints.LISTS.FETCH, authToken);
       const lists = await response.json();
-
+			await tasks.actions.fetch(store, lists);
+			
       store.setState({
         lists: {
+					fetching: false,
           lists: [...lists]
         }
       });
 
-      const tasksByList = await tasks.actions.fetch(store);
 
       return true;
     } catch (err) {
-      console.log("err", err);
+      return false;
     }
 	},
 	create: async (store, name) => {
@@ -41,7 +42,7 @@ const actions = {
 			})
 			return true;
 		} catch(err) {
-			console.log(err)
+			return false;
 		}
 
 	},
@@ -55,8 +56,8 @@ const actions = {
 			try{
 				const responseTasks = await httpClient.destroy(endpoints.TASKS.DELETE, authToken, idList);
 				const responseList = await httpClient.destroy(endpoints.LISTS.DELETE, authToken, idList);
-				const deletedTasks = await responseTasks.text();
-			  const deletedList = await responseList.json();
+				await responseTasks.text();
+			  await responseList.json();
 			delete tasks[idList]
 			const filteredLists = lists.filter(list => list.id !== idList);
 			store.setState({
@@ -73,12 +74,12 @@ const actions = {
 			})
 				return true;
 			} catch(err) {
-				console.log("err", err);
+				 return false;
 			}
 		} else {
 			try {
 				const responseList = await httpClient.destroy(endpoints.LISTS.DELETE, authToken, idList);
-				const deletedList = await responseList.json();
+				await responseList.json();
 				const filteredLists = lists.filter(list => list.id !== idList);
 				store.setState({
 					lists: {
@@ -102,7 +103,7 @@ const actions = {
 
 		try {
 			const response = await httpClient.put(endpoints.LISTS.EDIT, authToken, {name}, idList);
-			const editedList = await response.json();
+			await response.json();
 
 			store.setState({
 				lists: {
@@ -115,7 +116,7 @@ const actions = {
 
 			return true;
 		}catch(err) {
-			console.log("err", err);
+			 return false;
 			return false;
 		}
 	},
