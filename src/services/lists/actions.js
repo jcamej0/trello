@@ -117,7 +117,6 @@ const actions = {
 			return true;
 		}catch(err) {
 			 return false;
-			return false;
 		}
 	},
 };

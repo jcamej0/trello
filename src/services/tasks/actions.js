@@ -62,10 +62,7 @@ const actions = {
   modify: async (store, idTask, idList, task) => {
     const authToken = store.state.auth.authToken;
     const taskList = store.state.tasks.tasks;
-    const taskListFiltered = taskList[idList];
-    const indexOfElement = taskListFiltered.findIndex(
-      element => element.id === idTask
-    );
+				const taskListFiltered = taskList[idList];
     try {
       const response = await httpClient.put(
         endpoints.TASKS.MODIFY,
@@ -73,18 +70,16 @@ const actions = {
         { task },
         idTask
       );
-      const modifyTask = await response.json();
+						await response.json();
       store.setState({
         tasks: {
           tasks: {
             ...store.state.tasks.tasks,
-            [idList]: [
-              ...store.state.tasks.tasks[idList],
-              (store.state.tasks.tasks[idList][indexOfElement].task = task)
-            ]
+            [idList]: [...taskListFiltered]
           }
-        }
-      });
+								}
+						});
+						debugger;
       return true;
     } catch (err) {
        return false;

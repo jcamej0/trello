@@ -18,7 +18,6 @@ function offset(el) {
 
 const Lists = ({ id, name }) => {
   const [idList, changeIdList] = useState(null);
-  const [newTask, changeNewTask] = useState("");
   const [newTaskName, changeNewTaskName] = useState("");
   const [editTaskName, changeEditTaskName] = useState(false);
   const [showModal, changeShowModal] = useState(false);
@@ -44,14 +43,6 @@ const Lists = ({ id, name }) => {
 
   const handleTogglePrepareNewTask = () => {
     changePrepareInputNewTask(!prepareInputNewTask);
-  };
-
-  const handleChangeTaskName = event => {
-    changeNewTaskName(event.target.value);
-  };
-
-  const handleChangeNewTask = event => {
-    changeNewTask(event.target.value);
   };
 
   const handleDisplayTooltip = (ref, idTask) => {

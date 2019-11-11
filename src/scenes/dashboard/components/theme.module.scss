@@ -147,6 +147,10 @@ $list-bg-color: #e2e4e6;
 
 
 .add-new-list {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
   background-color: hsla(0, 0%, 100%, 0.24);
   cursor: pointer;
   min-width: $list-width;
