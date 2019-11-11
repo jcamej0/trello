@@ -3,26 +3,34 @@ import { Link } from "react-router-dom";
 import AccessForm from "../../components/access-form";
 import actions from "../../services/signup";
 import Spinner from "../../ui-library/loading-spinner";
-import "./theme.scss";
+import theme from "./theme.module.scss";
 
 const Signup = () => {
-  const [signupStatus, changeSignupStatus] = useState(false);
+	const [signupStatus, changeSignupStatus] = useState(false);
+	const [signupMessage, changeSignupMesage] = useState(false);
 
-  const handleSignup = async ({ name, password }) => {
-    changeSignupStatus("isLoading");
-    const registerStatus = await actions.register({ name, password });
+  const handleSignup = async ({ username, password }) => {
+		changeSignupStatus("isLoading");
+		changeSignupMesage(false);
+    const registerStatus = await actions.register({ username, password });
     if (registerStatus) {
-      changeSignupStatus(true);
+			changeSignupStatus(true);
+			changeSignupMesage(true);
       return;
     } else {
       changeSignupStatus(false);
     }
   };
   return (
-    <div className="container">
-      <div className="login-container">
+    <div className={theme.container}>
+      <div className={theme["login-container"]}>
         <h1>Registro</h1>
         <AccessForm onSubmit={handleSignup} label="Registrarse" />
+				{ signupMessage &&
+					<div className={theme["success-message"]}>
+						<p>Cuentra creada satisfactoriamente</p>
+					</div>
+				}
         <Link to="/">
           <p>Iniciar sesión</p>
         </Link>
